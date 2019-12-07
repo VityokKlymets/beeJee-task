@@ -33,10 +33,8 @@ export default () => {
         data.append('password',values.password)
         const responce = await post<IApiLoginResponce>('/login',data)
         if(responce.status==='ok'){
-            const token = responce.message.token;
             dispatch(setToken(responce.message.token))
             history.push('/')
-            localStorage.setItem('token',token)
         }
         actions.setSubmitting(false);
         setResponce(responce)

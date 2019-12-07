@@ -4,11 +4,12 @@ import { setToken, deleteToken } from "../../../store/actions/tokenActions";
 import isAuthenticated from "../../../store/selectors/isAuthenticated";
 import { ButtonProps } from "semantic-ui-react";
 import { useHistory } from "react-router";
+import { getToken } from "../../utils/localStorage/token";
 
 export default () => {
   const dispatch = useDispatch();
   const history = useHistory()
-  const token = localStorage.getItem("token");
+  const token = getToken();
   if (token) {
     dispatch(setToken(token));
   }

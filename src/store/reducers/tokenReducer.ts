@@ -1,12 +1,15 @@
 import { TokenActionTypes, SET_TOKEN, DELETE_TOKEN } from "../types/token";
+import { setToken } from "../../components/utils/localStorage/token";
 
 const initialState = "";
 export default (state = initialState, action: TokenActionTypes): string => {
   switch (action.type) {
     case SET_TOKEN:
-      return action.payload.token;
+      const token = action.payload.token
+      setToken(token)
+      return token;
     case DELETE_TOKEN:
-      localStorage.setItem("token", "");      
+      setToken('')
       return "";
     default:
       return state;
