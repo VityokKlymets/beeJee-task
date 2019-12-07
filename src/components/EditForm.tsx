@@ -32,6 +32,7 @@ const EditForm: React.FC<IProps> = ({
         handleSubmit
       }) => (
         <Form
+          size='large'
           success={responce.status === "ok"}
           error={responce.status === "error"}
           onSubmit={handleSubmit}

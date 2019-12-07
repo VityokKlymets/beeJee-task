@@ -28,7 +28,7 @@ const App: React.FC = () => {
               authorized={authorized}
             ></LeftMenu>
           </Grid.Column>
-          <Grid.Column width={7}>
+          <Grid.Column width={9}>
             <Switch>
               <Route path="/add">
                 <AddTaskForm />

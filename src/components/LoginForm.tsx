@@ -19,7 +19,12 @@ const LoginForm: React.FC = () => {
         handleBlur,
         handleSubmit
       }) => (
-        <Form error={responce.status === 'error'} onSubmit={handleSubmit} loading={isSubmitting}>
+        <Form
+          size="large"
+          error={responce.status === "error"}
+          onSubmit={handleSubmit}
+          loading={isSubmitting}
+        >
           <Form.Input
             onChange={handleChange}
             onBlur={handleBlur}
@@ -41,11 +46,11 @@ const LoginForm: React.FC = () => {
             required
             fluid
           ></Form.Input>
-            <Message
-              error
-              header="Action Forbidden"
-              content={responce.message ? responce.message.password: ''}
-            />
+          <Message
+            error
+            header="Action Forbidden"
+            content={responce.message ? responce.message.password : ""}
+          />
           <Button disabled={isSubmitting}>Submit</Button>
         </Form>
       )}

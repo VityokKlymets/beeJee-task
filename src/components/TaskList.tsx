@@ -27,7 +27,7 @@ const TaskList: React.FC = () => {
   } = useTaskList();
   if (tasks.length !== 0)
     return (
-      <Container>
+      <Container fluid>
         <Table size='large' basic='very' celled  fixed sortable>
           <Table.Header>
             <Table.Row>
@@ -107,7 +107,7 @@ const TaskList: React.FC = () => {
         </Modal>
       </Container>
     );
-  else return <div>No task here</div>;
+  else return null;
 };
 
 export default TaskList;
