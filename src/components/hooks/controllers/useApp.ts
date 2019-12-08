@@ -10,24 +10,23 @@ import isAuthenticated from 'store/selectors/isAuthenticated'
 import { getToken } from 'components/utils/localStorage/token'
 
 export default () => {
+  const dispatch = useDispatch()
+  const history = useHistory()
 
-	const dispatch = useDispatch()
-	const history = useHistory()
+  const token = getToken()
+  if (token) {
+    dispatch(setToken(token))
+  }
 
-	const token = getToken()
-	if (token) {
-		dispatch(setToken(token))
-	}
+  const authorized = useSelector(isAuthenticated)
 
-	const authorized = useSelector(isAuthenticated)
+  const logout = (e: MouseEvent<HTMLButtonElement>, data: ButtonProps) => {
+    dispatch(deleteToken())
+    history.push('/')
+  }
 
-	const logout = (e: MouseEvent<HTMLButtonElement>, data: ButtonProps) => {
-		dispatch(deleteToken())
-		history.push('/')
-	}
-
-	return {
-		authorized,
-		logout,
-	}
+  return {
+    authorized,
+    logout
+  }
 }

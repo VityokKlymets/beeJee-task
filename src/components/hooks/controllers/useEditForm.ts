@@ -11,70 +11,70 @@ import { getToken } from 'components/utils/localStorage/token'
 import post from 'components/utils/api/post'
 
 interface IFormData {
-	status: number
-	text: string
-	id: number
+  status: number
+  text: string
+  id: number
 }
 interface IValidateErrors {
-	text?: string
-	status?: string
+  text?: string
+  status?: string
 }
 export default (initialValues: IFormData) => {
-	const [responce, setResponce] = useState<IApiEditTaskResponce>({
-		status: '',
-	})
-	const dispatch = useDispatch()
-	const history = useHistory()
+  const [responce, setResponce] = useState<IApiEditTaskResponce>({
+    status: ''
+  })
+  const dispatch = useDispatch()
+  const history = useHistory()
 
-	const onSubmit = async (values: IFormData, actions: FormikHelpers<IFormData>) => {
-		actions.setSubmitting(true)
+  const onSubmit = async (values: IFormData, actions: FormikHelpers<IFormData>) => {
+    actions.setSubmitting(true)
 
-		const status = !!values.status ? 0 : 10
-		const token = getToken()
+    const status = !!values.status ? 0 : 10
+    const token = getToken()
 
-		const body = new FormData()
-		body.append('status', status.toString())
-		body.append('text', values.text)
-		body.append('token', token)
+    const body = new FormData()
+    body.append('status', status.toString())
+    body.append('text', values.text)
+    body.append('token', token)
 
-		const responce = await post<IApiEditTaskResponce>(`/edit/${values.id}`, body)
+    const responce = await post<IApiEditTaskResponce>(`/edit/${values.id}`, body)
 
-		if (responce.status === 'ok') {
-			dispatch(editTask(values.id, status, values.text))
-		}
-		if (responce.status === 'error') {
-			history.push('/login')
-		}
+    if (responce.status === 'ok') {
+      dispatch(editTask(values.id, status, values.text))
+    }
+    if (responce.status === 'error') {
+      history.push('/login')
+    }
 
-		actions.setSubmitting(false)
-		setResponce(responce)
-	}
+    actions.setSubmitting(false)
+    setResponce(responce)
+  }
 
-	const validate = (values: IFormData) => {
-		const errors: IValidateErrors = {}
-		const { status, text } = values
-		const statusNumber = Number(status)
-		const statusString = status.toString()
+  const validate = (values: IFormData) => {
+    const errors: IValidateErrors = {}
+    const { status, text } = values
+    const statusNumber = Number(status)
+    const statusString = status.toString()
 
-		if (statusNumber !== 0 && statusNumber !== 10) {
-			errors.status = 'Only 0 or 10 value allowed'
-		}
+    if (statusNumber !== 0 && statusNumber !== 10) {
+      errors.status = 'Only 0 or 10 value allowed'
+    }
 
-		if (!statusString.match(/^[0-9]+$/)) {
-			errors.status = 'Only numbers allowed'
-		}
+    if (!statusString.match(/^[0-9]+$/)) {
+      errors.status = 'Only numbers allowed'
+    }
 
-		if (statusString.length === 0) errors.status = 'Required'
-		
-		if (!text) errors.text = 'Required'
+    if (statusString.length === 0) errors.status = 'Required'
 
-		return errors
-	}
+    if (!text) errors.text = 'Required'
 
-	return {
-		initialValues,
-		onSubmit,
-		validate,
-		responce,
-	}
+    return errors
+  }
+
+  return {
+    initialValues,
+    onSubmit,
+    validate,
+    responce
+  }
 }

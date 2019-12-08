@@ -18,96 +18,94 @@ import { TASKS_PER_PAGE } from 'config/config'
 type SortField = 'id' | 'username' | 'email' | 'status'
 
 interface SortPagination {
-	direction?: 'ascending' | 'descending'
-	field?: SortField
+  direction?: 'ascending' | 'descending'
+  field?: SortField
 }
 
 export default () => {
-	const [page, setPage] = useState(1)
-	const [totalPages, setTotalPages] = useState(0)
+  const [page, setPage] = useState(1)
+  const [totalPages, setTotalPages] = useState(0)
 
-	const [editingTask, setEditingTask] = useState()
-	const [taskEdit, setTaskEdit] = useState(false)
+  const [editingTask, setEditingTask] = useState()
+  const [taskEdit, setTaskEdit] = useState(false)
 
-	const [sort, setSort] = useState<SortPagination>({})
+  const [sort, setSort] = useState<SortPagination>({})
 
-	const dispatch = useDispatch()
-	const history = useHistory()
-	const authorized = useSelector(isAuthenticated)
-	const tasks = useSelector(tasksSelector)
+  const dispatch = useDispatch()
+  const history = useHistory()
+  const authorized = useSelector(isAuthenticated)
+  const tasks = useSelector(tasksSelector)
 
-	const direction =
-		sort.direction === 'ascending' ? 'asc' : sort.direction === 'descending' ? 'desc' : ''
+  const direction =
+    sort.direction === 'ascending' ? 'asc' : sort.direction === 'descending' ? 'desc' : ''
 
-	useEffect(() => {
-		;(async () => {
-			const query = { page, sort_field: sort.field, sort_direction: direction }
+  useEffect(() => {
+    ;(async () => {
+      const query = { page, sort_field: sort.field, sort_direction: direction }
 
-			const responce = await get<IApiTasksResponce>('/', query)
-			const { tasks, total_task_count } = responce.message
-			const totalPages = Math.ceil(total_task_count / TASKS_PER_PAGE)
+      const responce = await get<IApiTasksResponce>('/', query)
+      const { tasks, total_task_count } = responce.message
+      const totalPages = Math.ceil(total_task_count / TASKS_PER_PAGE)
 
-			setTotalPages(totalPages)
-			dispatch(initTasks(tasks))
-		})()
-	}, [page, sort])
+      setTotalPages(totalPages)
+      dispatch(initTasks(tasks))
+    })()
+  }, [page, sort])
 
-	const onPageChange = (event: SyntheticEvent, data: any) => {
-		const { activePage } = data
-		setPage(activePage)
-	}
+  const onPageChange = (event: SyntheticEvent, data: any) => {
+    const { activePage } = data
+    setPage(activePage)
+  }
 
-	const onTaskEditClick = (taskId: number, status: number, text: string) => {
-		setEditingTask({
-			id: taskId,
-			status,
-			text
-		})
-		setTaskEdit(true)
-	}
+  const onTaskEditClick = (taskId: number, status: number, text: string) => {
+    setEditingTask({
+      id: taskId,
+      status,
+      text
+    })
+    setTaskEdit(true)
+  }
 
-	const onTaskEditClose = () => {
-		setTaskEdit(false)
-	}
+  const onTaskEditClose = () => {
+    setTaskEdit(false)
+  }
 
-	const handleSort = (clickedColumn: SortField) => () => {
-		setSort({
-			direction: sort.direction === 'ascending' ? 'descending' : 'ascending',
-			field: clickedColumn
-		})
-	}
+  const handleSort = (clickedColumn: SortField) => () => {
+    setSort({
+      direction: sort.direction === 'ascending' ? 'descending' : 'ascending',
+      field: clickedColumn
+    })
+  }
 
-	const onTaskStatusChange = async (taskId: number, taskStatus: number) => {
-		const status = !!taskStatus ? 0 : 10
-		const token = getToken()
+  const onTaskStatusChange = async (taskId: number, taskStatus: number) => {
+    const status = !!taskStatus ? 0 : 10
+    const token = getToken()
 
-		const body = new FormData()
-		body.append('status', status.toString())
-		body.append('token', token)
+    const body = new FormData()
+    body.append('status', status.toString())
+    body.append('token', token)
 
-		const responce = await post<IApiEditTaskResponce>(`/edit/${taskId}`, body)
-		if (responce.status === 'ok') {
-			dispatch(editTask(taskId, status))
-		}
+    const responce = await post<IApiEditTaskResponce>(`/edit/${taskId}`, body)
+    if (responce.status === 'ok') {
+      dispatch(editTask(taskId, status))
+    }
 
-		if (responce.status === 'error') {
-			history.push('/login')
-		}
-	}
+    if (responce.status === 'error') {
+      history.push('/login')
+    }
+  }
 
-	
-
-	return {
-		tasks,
-		totalPages,
-		onPageChange,
-		handleSort,
-		sort,
-		authorized,
-		editingTask,
-		taskEdit,
-		onTaskEditClick,
-		onTaskStatusChange,
-		onTaskEditClose
-	}
+  return {
+    tasks,
+    totalPages,
+    onPageChange,
+    handleSort,
+    sort,
+    authorized,
+    editingTask,
+    taskEdit,
+    onTaskEditClick,
+    onTaskStatusChange,
+    onTaskEditClose
+  }
 }
