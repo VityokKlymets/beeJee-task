@@ -1,22 +1,26 @@
-import ITask from 'components/interfaces/ITask'
-import { TaskActionTypes, INIT_TASKS, EDIT_TASK } from 'store/types/task'
+import ITask from "components/interfaces/ITask";
+import { EDIT_TASK, INIT_TASKS, TaskActionTypes } from "store/types/task";
 
-export const initTasks = (tasks: Array<ITask>): TaskActionTypes => {
+export const initTasks = (tasks: ITask[]): TaskActionTypes => {
   return {
-    type: INIT_TASKS,
     payload: {
-      tasks
-    }
-  }
-}
+      tasks,
+    },
+    type: INIT_TASKS,
+  };
+};
 
-export const editTask = (id: number, status?: number, text?: string): TaskActionTypes => {
+export const editTask = (
+  id: number,
+  status?: number,
+  text?: string,
+): TaskActionTypes => {
   return {
-    type: EDIT_TASK,
     payload: {
       id,
       status,
-      text
-    }
-  }
-}
+      text,
+    },
+    type: EDIT_TASK,
+  };
+};

@@ -1,9 +1,9 @@
-import IApiResponce from './IApiResponce'
+import IApiResponce from "./IApiResponce";
 
 interface Message {
-  token?: string
+  token?: string;
 }
 
 export default interface IApiEditTaskResponce extends IApiResponce {
-  message?: Message
+  message?: Message;
 }

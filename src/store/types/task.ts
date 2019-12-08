@@ -1,26 +1,26 @@
-import ITask from 'components/interfaces/ITask'
+import ITask from "components/interfaces/ITask";
 
-export const INIT_TASKS = 'INIT_TASKS'
-export const EDIT_TASK = 'EDIT_TASK'
+export const INIT_TASKS = "INIT_TASKS";
+export const EDIT_TASK = "EDIT_TASK";
 
 export interface TaskState {
-  tasks: Array<ITask>
+  tasks: ITask[];
 }
 
-export interface initTasksAction {
-  type: typeof INIT_TASKS
+export interface InitTasksAction {
+  type: typeof INIT_TASKS;
   payload: {
-    tasks: Array<ITask>
-  }
+    tasks: ITask[];
+  };
 }
 
-export interface editTaskAction {
-  type: typeof EDIT_TASK
+export interface EditTaskAction {
+  type: typeof EDIT_TASK;
   payload: {
-    id: number
-    status?: number
-    text?: string
-  }
+    id: number;
+    status?: number;
+    text?: string;
+  };
 }
 
-export type TaskActionTypes = initTasksAction | editTaskAction
+export type TaskActionTypes = InitTasksAction | EditTaskAction;

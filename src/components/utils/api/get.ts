@@ -1,18 +1,18 @@
-import axios from 'axios'
-import _ from 'lodash'
-import { API_BASE, DEVELOPER_NAME } from 'config/config'
+import axios from "axios";
+import { API_BASE, DEVELOPER_NAME } from "config/config";
+import _ from "lodash";
 
 export default async <T>(url: string, query?: any): Promise<T> => {
-  const pureQuery = _.pickBy(query, _.identity)
+  const pureQuery = _.pickBy(query, _.identity);
   const responce = await axios({
-    method: 'GET',
+    method: "GET",
     baseURL: API_BASE,
     params: {
       developer: DEVELOPER_NAME,
-      ...pureQuery
+      ...pureQuery,
     },
-    url
-  })
-  const data: T = responce.data
-  return data
-}
+    url,
+  });
+  const data: T = responce.data;
+  return data;
+};

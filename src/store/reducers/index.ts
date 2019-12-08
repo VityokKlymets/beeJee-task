@@ -1,8 +1,8 @@
-import { combineReducers } from 'redux'
-import tokenReducer from './tokenReducer'
-import taskReducer from './taskReducer'
+import { combineReducers } from "redux";
+import taskReducer from "./taskReducer";
+import tokenReducer from "./tokenReducer";
 
 export default combineReducers({
+  task: taskReducer,
   token: tokenReducer,
-  task: taskReducer
-})
+});

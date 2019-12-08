@@ -1,10 +1,10 @@
-import IApiResponce from './IApiResponce'
+import IApiResponce from "./IApiResponce";
 
 interface Message {
-  username?: string
-  password?: string
-  token?: string
+  username?: string;
+  password?: string;
+  token?: string;
 }
 export default interface IApiLoginResponce extends IApiResponce {
-  message: Message
+  message: Message;
 }

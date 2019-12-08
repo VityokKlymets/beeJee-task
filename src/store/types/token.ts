@@ -1,15 +1,15 @@
-export const SET_TOKEN = 'SET_TOKEN'
-export const DELETE_TOKEN = 'DELETE_TOKEN'
+export const SET_TOKEN = "SET_TOKEN";
+export const DELETE_TOKEN = "DELETE_TOKEN";
 
-export interface setTokenAction {
-  type: typeof SET_TOKEN
+export interface SetTokenAction {
+  type: typeof SET_TOKEN;
   payload: {
-    token: string
-  }
+    token: string;
+  };
 }
 
-export interface deleteTokenAction {
-  type: typeof DELETE_TOKEN
+export interface DeleteTokenAction {
+  type: typeof DELETE_TOKEN;
 }
 
-export type TokenActionTypes = setTokenAction | deleteTokenAction
+export type TokenActionTypes = SetTokenAction | DeleteTokenAction;

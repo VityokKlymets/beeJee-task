@@ -1,32 +1,32 @@
-import { MouseEvent } from 'react'
-import { ButtonProps } from 'semantic-ui-react'
+import { MouseEvent } from "react";
+import { ButtonProps } from "semantic-ui-react";
 
-import { useDispatch, useSelector } from 'react-redux'
-import { useHistory } from 'react-router'
+import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router";
 
-import { setToken, deleteToken } from 'store/actions/tokenActions'
-import isAuthenticated from 'store/selectors/isAuthenticated'
+import { deleteToken, setToken } from "store/actions/tokenActions";
+import isAuthenticated from "store/selectors/isAuthenticated";
 
-import { getToken } from 'components/utils/localStorage/token'
+import { getToken } from "components/utils/localStorage/token";
 
 export default () => {
-  const dispatch = useDispatch()
-  const history = useHistory()
+  const dispatch = useDispatch();
+  const history = useHistory();
 
-  const token = getToken()
+  const token = getToken();
   if (token) {
-    dispatch(setToken(token))
+    dispatch(setToken(token));
   }
 
-  const authorized = useSelector(isAuthenticated)
+  const authorized = useSelector(isAuthenticated);
 
   const logout = (e: MouseEvent<HTMLButtonElement>, data: ButtonProps) => {
-    dispatch(deleteToken())
-    history.push('/')
-  }
+    dispatch(deleteToken());
+    history.push("/");
+  };
 
   return {
     authorized,
-    logout
-  }
-}
+    logout,
+  };
+};
