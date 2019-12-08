@@ -1,4 +1,4 @@
-import { createSelector } from "reselect";
-const tasksSelector = (state: any) => state.task.tasks;
+import { createSelector } from 'reselect'
 
-export default createSelector(tasksSelector, tasks => tasks);
+const tasksSelector = (state: any) => state.task.tasks
+export default createSelector(tasksSelector, tasks => tasks)

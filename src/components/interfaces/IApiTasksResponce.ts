@@ -1,11 +1,11 @@
-import IApiResponce from "./IApiResponce";
-import ITask from "./ITask";
+import IApiResponce from './IApiResponce'
+import ITask from './ITask'
 
-interface ITaskMessage{
-    tasks: ITask[],
-    total_task_count: number
+interface ITaskMessage {
+	tasks: ITask[]
+	total_task_count: number
 }
 
-export default interface IApiTasksResponce extends IApiResponce{
-    message: ITaskMessage
+export default interface IApiTasksResponce extends IApiResponce {
+	message: ITaskMessage
 }
