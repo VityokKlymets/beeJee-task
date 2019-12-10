@@ -40,7 +40,7 @@ export default () => {
     const res = await post<IApiLoginResponce>("/login", data);
 
     if (res.status === "ok") {
-      const { token } = responce.message;
+      const { token } = res.message;
       dispatch(setToken(token || ""));
       history.push("/");
     }
