@@ -11,7 +11,7 @@ import post from "components/utils/api/post";
 import { getToken } from "components/utils/localStorage/token";
 
 interface IFormData {
-  status: number;
+  status: string;
   text: string;
   id: number;
 }
@@ -32,11 +32,10 @@ export default (initialValues: IFormData) => {
   ) => {
     actions.setSubmitting(true);
 
-    const status = !!values.status ? 0 : 10;
     const token = getToken();
 
     const body = new FormData();
-    body.append("status", status.toString());
+    body.append("status", values.status);
     body.append("text", values.text);
     body.append("token", token);
 
@@ -46,7 +45,7 @@ export default (initialValues: IFormData) => {
     );
 
     if (res.status === "ok") {
-      dispatch(editTask(values.id, status, values.text));
+      dispatch(editTask(values.id, parseInt(values.status, 10), values.text));
     }
     if (res.status === "error") {
       history.push("/login");

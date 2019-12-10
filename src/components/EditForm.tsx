@@ -6,7 +6,7 @@ import useEditForm from "./hooks/controllers/useEditForm";
 
 interface IProps {
   initialData: {
-    status: number;
+    status: string;
     text: string;
     id: number;
   };

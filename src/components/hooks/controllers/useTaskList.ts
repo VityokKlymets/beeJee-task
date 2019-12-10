@@ -49,9 +49,9 @@ export default () => {
 
       const responce = await get<IApiTasksResponce>("/", query);
       const { tasks, total_task_count } = responce.message;
-      const totalPages = Math.ceil(total_task_count / TASKS_PER_PAGE);
+      const pages = Math.ceil(total_task_count / TASKS_PER_PAGE);
 
-      setTotalPages(totalPages);
+      setTotalPages(pages);
       dispatch(initTasks(tasks));
     })();
   }, [page, sort, direction, dispatch]);
